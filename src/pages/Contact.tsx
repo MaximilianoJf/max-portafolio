@@ -57,12 +57,12 @@ export default function Contact() {
             <div className="flex">
               <Linkedin className="w-6 h-6 text-cyan-400" />
               <a
-                href="https://linkedin.com/in/tuusuario"
+                href="https://linkedin.com/in/maximiliano-alejandro-jiménez-flores-1261a1267/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-teal-300 transition-colors"
               >
-                linkedin.com/in/maximiliano-alejandro-jiménez-flores-1261a1267/
+                visitar Linkeding
               </a>
             </div>
           </div>
