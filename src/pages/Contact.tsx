@@ -54,7 +54,7 @@ export default function Contact() {
                 github.com/MaximilianoJf
               </a>
             </div>
-            <div className="flex">
+            <div className="flex items-center gap-4">
               <Linkedin className="w-6 h-6 text-cyan-400" />
               <a
                 href="https://linkedin.com/in/maximiliano-alejandro-jiménez-flores-1261a1267/"
@@ -62,7 +62,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="hover:text-teal-300 transition-colors"
               >
-                visitar Linkeding
+                Visitar Linkeding
               </a>
             </div>
           </div>
