@@ -395,14 +395,14 @@ export const db: Project[] = [
       {
         id: 1,
         src: "/images/project-details/propina_1.png",
-        alt: "Carrito de compras",
+        alt: "Index",
         category: "React",
         type: "image", 
       },
       {
         id: 2,
         src: "/images/project-details/propina_2.png",
-        alt: "Carrito de compras",
+        alt: "Agregando detalle",
         category: "React",
         type: "image", 
       },
