@@ -383,6 +383,7 @@ export const db: Project[] = [
     ],
     type: 0,
   },
+  
   {
     id: 7,
     name: "Calculadora de propinas",
@@ -453,6 +454,47 @@ export const db: Project[] = [
         type: "image", 
       },
      
+    ],
+    type: 0,
+  },
+  {
+    id: 9,
+    name: "Bebidas React - api - OpenRouter",
+    description: "Bebidas Api React Vite Project + Zustand + OpenRouter + Axios + TypeScript.",
+    github: "https://github.com/MaximilianoJf/tragos-api",
+    url: "https://recetas-bebidas-mj.netlify.app",
+    image: "/images/project-thumbnails/bebidas_project_thumbnail.png",
+    tecnology: ["React", "Zustand ", "TypeScript", "JavaScript", "Tailwind", "OpenRouter", "Axios"],
+    images: [
+      {
+        id: 1,
+        src: "/images/project-details/bebidas_1.png",
+        alt: "Respuesta Api",
+        category: "React",
+        type: "image", 
+      },
+      {
+        id: 2,
+        src: "/images/project-details/bebidas_2.png",
+        alt: "Agregar receta a favoritos",
+        category: "React",
+        type: "image", 
+      },
+        {
+        id: 3,
+        src: "/images/project-details/bebidas_3.png",
+        alt: "State de favoritos",
+        category: "React",
+        type: "image", 
+      },
+        {
+        id: 4,
+        src: "/images/project-details/bebidas_4.png",
+        alt: "Generar receta consultando a IA",
+        category: "React",
+        type: "image", 
+      },
+      
     ],
     type: 0,
   },
