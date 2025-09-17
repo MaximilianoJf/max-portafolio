@@ -48,12 +48,12 @@ export default function Projects() {
             
              <div className="glass-card p-8 flex flex-col md:flex-row items-center gap-8 text-cyan-200">
                 <div className="md:basis-1/2 w-full flex justify-center">
-                <img
-                    src={state.selected.image}
-                    alt={`Imagen del proyecto ${state.selected.name}`}
-                    className="w-full h-auto max-w-[400px] rounded-lg shadow-lg object-cover"
-                    loading="lazy"
-                />
+                    <img
+                        src={state.selected.image}
+                        alt={`Imagen del proyecto ${state.selected.name}`}
+                        className="w-[400px] h-[250px] rounded-lg shadow-lg object-cover"
+                        loading="lazy"
+                    />
                 </div>
 
                 <div className="md:basis-1/2 w-full text-center md:text-left space-y-4">
