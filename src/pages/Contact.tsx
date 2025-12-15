@@ -62,7 +62,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="hover:text-teal-300 transition-colors"
               >
-                Visitar Linkeding
+                Visitar Linkedin
               </a>
             </div>
           </div>
