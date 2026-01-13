@@ -1,5 +1,6 @@
 import type { Project } from "../types"
-import type { Job } from "../types";
+
+import type { Category } from "../types";
 
 export const db: Project[] = [
   {
@@ -571,15 +572,20 @@ export const db: Project[] = [
   },
 ];
 
-
-export const jobData: Job[] = [
+export const formation: Category[] = [
   {
-    name: "Guiñez Ingeniería",
-    description: "Diseñé y desarrollé soluciones web para distintos servicios de la empresa, priorizando la experiencia de usuario y la organización funcional de los sistemas. Trabajé de forma integral en backend y frontend utilizando Laravel 10, JavaScript y bases de datos SQL. Todas las soluciones se desarrollaron bajo el patrón MVC (Modelo-Vista-Controlador) de Laravel, utilizando componentes nativos del framework, rutas restful, Eloquent ORM, Blade, controladores, middlewares, services, políticas de autorización, eventos y jobs. Además, participé en el análisis de requerimientos y solicitudes de clientes, impulsando la mejora continua de los módulos y la integración eficiente de los distintos servicios para optimizar su uso.",
-    title: "Desarrollador Full Stack Laravel 10",
-    url: "https://guinezingenieria.cl",
-    logo: "/images/logo/guinez-logo.png"
-   
+    title: 'Experiencia Laboral',
+    items: [
+      {
+        title: "Desarrollador Full Stack Laravel 10", 
+        name: "Guiñez Ingeniería",                  
+        content: "Diseñé y desarrollé soluciones web para distintos servicios de la empresa, priorizando la experiencia de usuario y la organización funcional de los sistemas. Trabajé de forma integral en backend y frontend utilizando Laravel 10, JavaScript y bases de datos SQL. Todas las soluciones se desarrollaron bajo el patrón MVC (Modelo-Vista-Controlador) de Laravel, utilizando componentes nativos del framework, rutas restful, Eloquent ORM, Blade, controladores, middlewares, services, políticas de autorización, eventos y jobs. Además, participé en el análisis de requerimientos y solicitudes de clientes, impulsando la mejora continua de los módulos y la integración eficiente de los distintos servicios para optimizar su uso.",
+        url: "https://guinezingenieria.cl",
+        logo: "/images/logo/guinez-logo.png"
+      },
+     
+    ]
   },
+ 
 ];
 

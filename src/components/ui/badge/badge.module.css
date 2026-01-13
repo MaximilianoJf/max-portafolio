@@ -1,0 +1,16 @@
+@import "TailwindCSS";
+@import "../styles/glass-utilities.css";
+
+@utility badge {
+  @apply text-xs p-1 justify-center text-center w-[100px] rounded-full font-medium cursor-pointer;
+}
+
+@layer components {
+  .glass-badge {
+    @apply badge glass-xl;
+
+    @variant hover {
+      @apply bg-white/10;
+    }
+  }
+}

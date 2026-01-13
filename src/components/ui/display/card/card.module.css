@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@import "../../styles/glass-utilities.css";
+
+@utility card {
+  @apply min-h-[300px] rounded-2xl flex flex-wrap justify-center p-8;
+}
+
+@layer components {
+  .glass-card {
+    @apply glass-lg card transition-all duration-300;
+
+    @variant hover {
+      @apply bg-gray-200/10;
+    }
+  }
+}

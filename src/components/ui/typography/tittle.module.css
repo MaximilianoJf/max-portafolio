@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "../styles/glass-utilities.css";
+
+@layer components {
+  .section-title {
+    @apply glass-lg  font-bold text-center text-lg w-2xl  justify-center my-12 p-2 rounded-2xl flex  items-center;
+
+    @variant hover {
+      @apply bg-gray-200/10;
+    }
+  }
+}

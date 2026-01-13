@@ -21,13 +21,20 @@ export type Project = {
   images?: ProjectImage[]; 
 };
 
-export type Job = {
-  name: string;
-  description: string;
-  title: string;
-  url: string;
-  logo: string;
-};
+
+interface AccordionItem {
+    title: string;
+    content: string;
+    name?: string;    
+    url?: string;      
+    logo?: string;     
+}
+
+export type Category = {
+    title?: string;
+    items: AccordionItem[];
+}
+
 
 
 export type SelectedProject = Project | null;
