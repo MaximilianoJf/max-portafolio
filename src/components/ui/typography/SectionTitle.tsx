@@ -1,5 +1,5 @@
 
-import tittle from "./Tittle.module.css"
+import tittle from "./tittle.module.css"
 
 interface SectionTitleProps {
     children: React.ReactNode;
