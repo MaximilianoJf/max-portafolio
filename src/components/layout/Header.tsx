@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useProject } from "../../hooks/useProject";
+
 import { AlignJustify, X } from 'lucide-react';
 import { ThemeSwitcher } from "../widgets/ThemeSwitcher";
 export default function Header() {
@@ -49,7 +50,7 @@ export default function Header() {
 
         <button
           onClick={toggleMenu}
-          className="md:hidden text-teal-400 focus:outline-none"
+          className="md:hidden text-foreground focus:outline-none"
           aria-label="Abrir menú navegación"
           aria-expanded={isMenuOpen}
         >
@@ -61,23 +62,32 @@ export default function Header() {
 
 
       <nav
-        className={`md:hidden bg-foreign bg-opacity-95 backdrop-blur-md px-6 py-4 border-t border-cyan-700 transition-all duration-300 ${isMenuOpen ? "block" : "hidden"}`}
+        className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out
+   
+        ${isMenuOpen ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0"}
+      
+    
+        bg-white/5 dark:bg-black/10 backdrop-blur-md
+        border-b  border-black/10 dark:border-white/10
+      `}
         aria-hidden={!isMenuOpen}
       >
-        <Link
-          to="/proyectos"
-          className="block py-2 border-b border-cyan-700 hover:text-teal-400 transition"
-          onClick={toggleMenu}
-        >
-          Proyectos
-        </Link>
-        <Link
-          to="/contacto"
-          className="block py-2 border-b border-cyan-700 hover:text-teal-400 transition"
-          onClick={toggleMenu}
-        >
-          Contacto
-        </Link>
+        <div className="flex flex-col px-6 py-4 gap-2">
+          <Link
+            to="/proyectos"
+            className="block py-3 px-4 rounded-xl   hover:bg-black/10 dark:hover:bg-white/10 hover:text-gray-600 transition-colors"
+            onClick={toggleMenu}
+          >
+            Proyectos
+          </Link>
+          <Link
+            to="/contacto"
+            className="block py-3 px-4 rounded-xl  hover:bg-black/10 dark:hover:bg-white/1 hover:text-gray-600 transition-colors"
+            onClick={toggleMenu}
+          >
+            Contacto
+          </Link>
+        </div>
       </nav>
     </header>
 
