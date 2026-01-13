@@ -20,7 +20,7 @@ export default function ProjectImageViewer() {
     >
 
       <div className="hidden md:block">
-        <Link variant="glass" circle={true} className="m-4 text-background">
+        <Link variant="glass" circle={true} className="m-4 text-white">
           <button onClick={(e) => { e.stopPropagation(); showPrevious(); }} className="p-2 cursor-pointer">
             <ChevronLeft size={32} />
           </button>
@@ -35,7 +35,7 @@ export default function ProjectImageViewer() {
 
         <div className="absolute top-4 right-4 z-50">
           <Link variant="glass" circle={true}>
-            <button onClick={closeModal} className="p-1 text-background cursor-pointer"><X size={20} /></button>
+            <button onClick={closeModal} className="p-1 text-white cursor-pointer"><X size={20} /></button>
           </Link>
         </div>
 
@@ -46,21 +46,21 @@ export default function ProjectImageViewer() {
             <video src={src} controls autoPlay loop className="w-full h-full object-contain" />
           )}
 
-          <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-md p-3 border-t border-white/10">
+          <div className="absolute bottom-5 left-0 right-0">
             <p className="text-center text-white/90 text-sm sm:text-base font-medium">{alt}</p>
           </div>
         </div>
 
         <div className="flex md:hidden items-center justify-center gap-8 mt-6 w-full">
           <Link variant="glass" circle={true}>
-            <button onClick={showPrevious} className="p-3 text-background cursor-pointer">
+            <button onClick={showPrevious} className="p-3 text-white cursor-pointer">
               <ChevronLeft size={28} />
             </button>
           </Link>
 
 
           <Link variant="glass" circle={true}>
-            <button onClick={showNext} className="p-3 text-background cursor-pointer">
+            <button onClick={showNext} className="p-3 text-white cursor-pointer">
               <ChevronRight size={28} />
             </button>
           </Link>
@@ -69,7 +69,7 @@ export default function ProjectImageViewer() {
 
       <div className="hidden md:block">
         <Link variant="glass" circle={true} className="m-4">
-          <button onClick={(e) => { e.stopPropagation(); showNext(); }} className="p-2 text-background cursor-pointer">
+          <button onClick={(e) => { e.stopPropagation(); showNext(); }} className="p-2 text-white cursor-pointer">
             <ChevronRight size={32} />
           </button>
         </Link>

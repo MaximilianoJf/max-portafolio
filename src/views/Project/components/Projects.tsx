@@ -3,11 +3,11 @@ import { useLocation } from "react-router-dom";
 import { Play } from "lucide-react";
 import { separarProyectos } from "../../../helpers/projectHelpers";
 import ProjectList from "./ProjectList";
-import { ExternalLink, Github } from "lucide-react"
+
 import { useEffect } from "react";
 import { Accordion } from "../../../components/ui/display/accordion/Accordion";
 import { formation } from "../../../data/db";
-import { Link as GlassLink, Card as GlassCard, Badge as GlassBadge } from "../../../components/ui";
+import { Card as GlassCard, Badge as GlassBadge } from "../../../components/ui";
 export default function Projects() {
 
     const { state, dispatch } = useProject();
