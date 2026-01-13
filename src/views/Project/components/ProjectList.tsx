@@ -29,7 +29,7 @@ export default function ProjectList({ projects, type, dispatch }: Props) {
                             navigate("/proyectos");
                         }}
                     >
-                        {/* Contenedor de Imagen con altura fija para alinear lo de abajo */}
+
                         <GlassCard.Image shape="square" className="aspect-video w-full overflow-hidden shrink-0">
                             <img
                                 src={project.image}
@@ -39,10 +39,10 @@ export default function ProjectList({ projects, type, dispatch }: Props) {
                             />
                         </GlassCard.Image>
 
-                        {/* Cuerpo de la card con Flex para empujar el contenido */}
+
                         <GlassCard.Description className="flex flex-col flex-grow p-6">
 
-                            {/* Título con altura mínima para que el texto de abajo empiece siempre igual */}
+
                             <GlassCard.Tittle className="flex items-start">
                                 <h3 className="text-2xl font-bold tracking-tight line-clamp-2">
                                     {project.name}

@@ -7,8 +7,9 @@ interface cardProps {
     className?: string;
     variant?: "glass" | "Default";
     shape?: "circle" | "square";
-    onClick?: () => void;
+    onClick?: (...args: any[]) => void | any;
 }
+
 
 const Body = ({ children, className = "" }: cardProps) => {
     const childrenCount = Children.count(children);
