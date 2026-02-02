@@ -7,7 +7,10 @@ import ProjectList from "./ProjectList";
 import { useEffect } from "react";
 import { Accordion } from "../../../components/ui/display/accordion/Accordion";
 import { formation } from "../../../data/db";
-import { Card as GlassCard, Badge as GlassBadge } from "../../../components/ui";
+import { Card as GlassCard, Link as GlassLink, Badge as GlassBadge } from "../../../components/ui";
+import { Github, Link as LucidLink } from "lucide-react";
+
+
 export default function Projects() {
 
     const { state, dispatch } = useProject();
@@ -73,9 +76,25 @@ export default function Projects() {
                                     </GlassCard.Content>
 
                                     <GlassCard.Footer>
-
                                         <div className="flex flex-wrap sm:flex-row justify-center sm:justify-start items-center gap-4 mt-4">
-
+                                            {state.selected.url && (
+                                                <>
+                                                    <GlassLink variant="glass"
+                                                        href={state.selected.url}
+                                                        ariaLabel="Ir al perfil de GitHub de Maximiliano Jiménez"
+                                                    >
+                                                        <LucidLink /> Visitar
+                                                    </GlassLink>
+                                                </>
+                                            )}
+                                            {state.selected.github && (
+                                                <GlassLink variant="glass"
+                                                    href={state.selected.github}
+                                                    ariaLabel="Ir al perfil de GitHub de Maximiliano Jiménez"
+                                                >
+                                                    <Github /> GitHub
+                                                </GlassLink>
+                                            )}
                                         </div>
                                     </GlassCard.Footer>
                                 </GlassCard.Description>
