@@ -267,7 +267,7 @@ export const db: Project[] = [
     id: 3,
     name: "Guiñez Ingeniería - Sistema SGD",
     description: 'Sistema desarrollado para organizar y administrar la documentación de los servicios "Servicio Integral de Geomensura" y "Servicio Integral de Administración de Muestras y Muestreo" de Minera Escondida.',
-    url: "https://sgd.guinezapp.cl/",
+    // url: "https://sgd.guinezapp.cl/",
     image: "/images/project-thumbnails/sgd_project_thumbnail.png",
     tecnology: ["PHP", "Laravel 10", "SQL", "JavaScript"],
     images: [
