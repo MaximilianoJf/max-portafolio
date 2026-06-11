@@ -38,8 +38,7 @@ export const Hero = () => {
                         className="font-bold"
                         style={{ fontSize: 'clamp(2.5rem, 5.5vw, 4.5rem)', lineHeight: '1.05', letterSpacing: '-0.04em', color: 'var(--c-text)' }}>
                         Diseñando soluciones<br />
-                        <span className="text-gradient">digitales</span>{" "}que<br />
-                        resuenan.
+                        que agregan <span className="text-gradient">valor.</span>
                     </motion.h1>
 
                     <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35 }}
