@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               Int       @id @default(autoincrement())
+  email            String    @unique
+  password         String
+  resetToken       String?
+  resetTokenExpiry DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model Project {
+  id          Int           @id @default(autoincrement())
+  name        String
+  description String
+  url         String?
+  github      String?
+  image       String        // URL de Cloudinary para thumbnail
+  technology  String[]      // Array de tecnologías
+  featured    Boolean       @default(false) // true = Trabajo Destacado, false = Proyecto de Aprendizaje
+  sortOrder   Int           @default(0)
+  images      ProjectImage[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model ProjectImage {
+  id        Int     @id @default(autoincrement())
+  projectId Int
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  src       String  // URL de Cloudinary
+  alt       String  @default("")
+  category  String  @default("")
+  type      String  @default("image") // "image" | "video"
+  thumbnail String? // URL de Cloudinary para video thumbnail
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId])
+}

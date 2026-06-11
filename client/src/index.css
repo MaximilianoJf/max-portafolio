@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Theme System: CSS Custom Properties ────────────────────────────────── */
+
+/* Dark theme only */
+:root,
+.dark,
+.light,
+[data-theme="dark"],
+[data-theme="light"] {
+  --c-bg: #0c0f0f;
+  --c-bg-alt: #0e1010;
+  --c-bg-footer: #0a0c0c;
+  --c-bg-surface: rgba(18, 20, 20, 0.80);
+  --c-bg-surface-solid: #121414;
+  --c-bg-surface-dim: rgba(14, 17, 17, 0.95);
+  --c-bg-elevated: #0e1010;
+  --c-bg-input: rgba(255, 255, 255, 0.04);
+  --c-bg-input-focus: rgba(255, 255, 255, 0.06);
+  --c-bg-overlay: rgba(0, 0, 0, 0.80);
+
+  --c-text: #e2e2e2;
+  --c-text-2: #b9cbc1;
+  --c-text-3: #83958c;
+  --c-text-4: #5a6b63;
+  --c-text-5: #3a4a43;
+
+  --c-accent: #00ffc2;
+  --c-accent-dim: #00e1ab;
+  --c-accent-soft: rgba(0, 255, 194, 0.08);
+  --c-accent-soft-2: rgba(0, 255, 194, 0.12);
+  --c-accent-border: rgba(0, 255, 194, 0.15);
+  --c-accent-glow: rgba(0, 255, 194, 0.25);
+  --c-accent-on: #003828;
+  --c-accent-gradient: linear-gradient(135deg, #00ffc2 0%, #00e1ab 100%);
+  --c-accent-gradient-text: linear-gradient(135deg, #00ffc2 0%, #00e1ab 50%, #36ffc4 100%);
+
+  --c-border: rgba(255, 255, 255, 0.06);
+  --c-border-dim: rgba(255, 255, 255, 0.04);
+  --c-border-hover: rgba(0, 255, 194, 0.35);
+
+  --c-glass-bg: rgba(18, 20, 20, 0.75);
+  --c-orb: rgba(0, 255, 194, 0.06);
+  --c-orb-2: rgba(0, 200, 150, 0.05);
+  --c-dot: rgba(255, 255, 255, 0.035);
+  --c-shadow: rgba(0, 0, 0, 0.60);
+  --c-shadow-heavy: rgba(0, 0, 0, 0.70);
+
+  --c-card-gradient: linear-gradient(to top, rgba(12,15,15,0.97) 0%, rgba(12,15,15,0.50) 50%, rgba(12,15,15,0.10) 100%);
+  --c-tag-bg: rgba(0, 0, 0, 0.50);
+  --c-tag-text: #b9cbc1;
+  --c-tag-border: rgba(255, 255, 255, 0.08);
+
+  --c-cta-bg: linear-gradient(135deg, #00ffc2 0%, #00e1ab 40%, #00d4a0 100%);
+  --c-cta-text: #003828;
+  --c-cta-sub: rgba(0, 56, 40, 0.60);
+  --c-cta-btn-bg: #003828;
+  --c-cta-btn-text: #00ffc2;
+
+  --c-scrollbar: rgba(0, 255, 194, 0.15);
+  --c-scrollbar-hover: rgba(0, 255, 194, 0.30);
+  --c-selection-bg: rgba(0, 255, 194, 0.20);
+}
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply transition-colors duration-500 ease-in-out antialiased overflow-x-hidden;
+    font-family: 'Inter', sans-serif;
+    background: var(--c-bg);
+    color: var(--c-text);
+  }
+}
+
+/* ── Glass ── */
+.glass {
+  background: var(--c-glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--c-border);
+  box-shadow: 0 20px 40px var(--c-shadow);
+}
+
+/* ── Section label ── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--c-accent);
+  margin-bottom: 1.25rem;
+}
+
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 2px;
+  border-radius: 9999px;
+  background: var(--c-accent);
+  flex-shrink: 0;
+}
+
+/* ── Text gradient ── */
+.text-gradient {
+  background: var(--c-accent-gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Dot grid ── */
+.dot-grid {
+  background-image: radial-gradient(circle, var(--c-dot) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--c-scrollbar);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--c-scrollbar-hover);
+}
+
+/* ── Selection ── */
+::selection {
+  background: var(--c-selection-bg);
+  color: var(--c-text);
+}
