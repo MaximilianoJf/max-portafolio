@@ -1,28 +1,29 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Input, Textarea } from "@heroui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, MapPin, Send, User, ArrowUpRight, CheckCircle2, XCircle, Clock } from "lucide-react";
+import emailjs from '@emailjs/browser';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || '';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '';
+
 type FormData = { name: string; email: string; subject: string; message: string; };
 
 export const Contact = () => {
+    const formRef = useRef<HTMLFormElement>(null);
     const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormData>();
     const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
     const [errorMsg, setErrorMsg] = useState('');
 
-    const onSubmit = async (data: FormData) => {
+    const onSubmit = async () => {
         setStatus('idle'); setErrorMsg('');
         try {
-            const response = await fetch(`${API_URL}/contact`, {
-                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data),
-            });
-            const result = await response.json();
-            if (!response.ok) { setStatus('error'); setErrorMsg(result.error || 'Error al enviar el mensaje'); return; }
+            await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formRef.current!, EMAILJS_PUBLIC_KEY);
             setStatus('success'); reset();
             setTimeout(() => setStatus('idle'), 5000);
-        } catch { setStatus('error'); setErrorMsg('Error de conexión. Intenta de nuevo.'); }
+        } catch { setStatus('error'); setErrorMsg('Error al enviar. Intenta de nuevo.'); }
     };
 
     return (
@@ -77,19 +78,19 @@ export const Contact = () => {
 
                         <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
                             <div className="p-6 sm:p-8 rounded-2xl" style={{ background: 'var(--c-bg-surface)', border: '1px solid var(--c-border)' }}>
-                                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+                                <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                        <Input {...register("name", { required: true })} label="Nombre" placeholder="Tu nombre" variant="bordered"
+                                        <Input {...register("name", { required: true })} name="name" label="Nombre" placeholder="Tu nombre" variant="bordered"
                                             startContent={<User className="h-4 w-4 text-foreground/30" />} isInvalid={!!errors.name}
                                             classNames={{ inputWrapper: "border-white/8 hover:border-white/20 data-[focus=true]:border-[#00ffc2] bg-white/[0.03]" }} />
-                                        <Input {...register("email", { required: true, pattern: /^\S+@\S+$/i })} label="Email" placeholder="tu@email.com" variant="bordered"
+                                        <Input {...register("email", { required: true, pattern: /^\S+@\S+$/i })} name="email" label="Email" placeholder="tu@email.com" variant="bordered"
                                             startContent={<Mail className="h-4 w-4 text-foreground/30" />} isInvalid={!!errors.email}
                                             classNames={{ inputWrapper: "border-white/8 hover:border-white/20 data-[focus=true]:border-[#00ffc2] bg-white/[0.03]" }} />
                                     </div>
-                                    <Input {...register("subject", { required: true })} label="Asunto" placeholder="¿En qué puedo ayudarte?" variant="bordered"
+                                    <Input {...register("subject", { required: true })} name="subject" label="Asunto" placeholder="¿En qué puedo ayudarte?" variant="bordered"
                                         isInvalid={!!errors.subject}
                                         classNames={{ inputWrapper: "border-white/8 hover:border-white/20 data-[focus=true]:border-[#00ffc2] bg-white/[0.03]" }} />
-                                    <Textarea {...register("message", { required: true })} label="Mensaje" placeholder="Cuéntame sobre tu proyecto..." variant="bordered"
+                                    <Textarea {...register("message", { required: true })} name="message" label="Mensaje" placeholder="Cuéntame sobre tu proyecto..." variant="bordered"
                                         minRows={4} isInvalid={!!errors.message}
                                         classNames={{ inputWrapper: "border-white/8 hover:border-white/20 data-[focus=true]:border-[#00ffc2] bg-white/[0.03]" }} />
 
