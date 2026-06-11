@@ -1,8 +1,21 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin } from "lucide-react";
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+const DEFAULT_PHOTO = "/images/photo/portafolio_photo.jpg";
 
-export const Hero = () => (
+export const Hero = () => {
+    const [photoUrl, setPhotoUrl] = useState(DEFAULT_PHOTO);
+
+    useEffect(() => {
+        fetch(`${API_URL}/settings/profile-photo`)
+            .then(r => r.json())
+            .then(d => { if (d.url) setPhotoUrl(d.url); })
+            .catch(() => {});
+    }, []);
+
+    return (
     <section id="home" className="relative min-h-screen overflow-hidden" style={{ background: 'var(--c-bg)' }}>
         <div className="absolute top-[15%] -left-[10%] w-[45%] h-[55%] rounded-full pointer-events-none"
             style={{ background: `radial-gradient(circle, var(--c-orb) 0%, transparent 70%)`, filter: 'blur(80px)' }} />
@@ -81,7 +94,7 @@ export const Hero = () => (
                             style={{ border: '1px solid var(--c-accent-soft)' }} />
                         <div className="relative w-full h-full rounded-2xl overflow-hidden"
                             style={{ border: '1px solid var(--c-accent-border)' }}>
-                            <img src="/images/photo/portafolio_photo.jpg" alt="Maximiliano Jiménez"
+                            <img src={photoUrl} alt="Maximiliano Jiménez"
                                 className="w-full h-full object-cover object-[center_10%]" style={{ aspectRatio: '1/1' }} />
                             <div className="absolute bottom-0 inset-x-0 h-40"
                                 style={{ background: `linear-gradient(to top, var(--c-bg) 0%, transparent 100%)` }} />
@@ -101,4 +114,5 @@ export const Hero = () => (
                 className="w-px" style={{ background: `linear-gradient(to bottom, var(--c-accent-border), transparent)` }} />
         </motion.div>
     </section>
-);
+    );
+};

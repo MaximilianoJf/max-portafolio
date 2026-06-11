@@ -24,7 +24,7 @@ export const Dashboard = () => {
   const [showProjectForm, setShowProjectForm] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [uploadingImagesFor, setUploadingImagesFor] = useState<Project | null>(null);
-  const [activeTab, setActiveTab] = useState<'projects' | 'cv' | 'password'>('projects');
+  const [activeTab, setActiveTab] = useState<'projects' | 'cv' | 'profile' | 'password'>('projects');
 
   const handleUnauthorized = () => {
     localStorage.removeItem('adminToken');
@@ -92,6 +92,7 @@ export const Dashboard = () => {
   const tabs = [
     { id: 'projects', label: '📁 Proyectos' },
     { id: 'cv',       label: '📄 Mi CV' },
+    { id: 'profile',  label: '👤 Foto de Perfil' },
     { id: 'password', label: '🔒 Contraseña' },
   ] as const;
 
@@ -350,6 +351,11 @@ export const Dashboard = () => {
           <CvUploadSection token={token} onUnauthorized={handleUnauthorized} />
         )}
 
+        {/* ── Tab: Foto de Perfil ── */}
+        {activeTab === 'profile' && (
+          <ProfilePhotoSection token={token} onUnauthorized={handleUnauthorized} />
+        )}
+
         {/* ── Tab: Contraseña ── */}
         {activeTab === 'password' && (
           <ChangePasswordForm
@@ -525,6 +531,183 @@ const CvUploadSection = ({
             }}
           >
             {isLoading ? 'Subiendo...' : 'Subir CV'}
+          </motion.button>
+        </form>
+      </div>
+    </motion.div>
+  );
+};
+
+/* ─────────────────────────────────────────
+   Profile Photo Section
+───────────────────────────────────────── */
+const ProfilePhotoSection = ({
+  token,
+  onUnauthorized,
+}: {
+  token: string | null;
+  onUnauthorized: () => void;
+}) => {
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [currentUrl, setCurrentUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    fetch(`${API_URL}/settings/profile-photo`)
+      .then(r => r.json())
+      .then(d => setCurrentUrl(d.url))
+      .catch(() => {});
+  }, []);
+
+  const handleSelect = (file: File | null) => {
+    setPhotoFile(file);
+    setError('');
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => setPreview(reader.result as string);
+      reader.readAsDataURL(file);
+    } else {
+      setPreview(null);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!photoFile) { setError('Selecciona una imagen'); return; }
+    setError('');
+    setSuccess(false);
+    setIsLoading(true);
+
+    try {
+      const form = new FormData();
+      form.append('photo', photoFile);
+
+      const response = await fetch(`${API_URL}/settings/profile-photo`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: form,
+      });
+
+      if (response.status === 401) { onUnauthorized(); return; }
+
+      if (response.ok) {
+        const data = await response.json();
+        setCurrentUrl(data.url);
+        setPhotoFile(null);
+        setPreview(null);
+        setSuccess(true);
+        setTimeout(() => setSuccess(false), 4000);
+      } else {
+        const text = await response.text();
+        try { setError(JSON.parse(text).error); } catch { setError(`Error ${response.status}`); }
+      }
+    } catch {
+      setError('Error de conexión');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const displayImage = preview || currentUrl || '/images/photo/portafolio_photo.jpg';
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-xl"
+    >
+      <div className="rounded-2xl p-8 backdrop-blur-xl"
+        style={{ background: 'rgba(18,20,20,0.70)', border: '1px solid rgba(0,255,194,0.25)', boxShadow: '0 0 30px -8px rgba(0,255,194,0.20)' }}>
+        <h2 className="text-2xl font-bold mb-2" style={{
+          background: 'linear-gradient(135deg, #00ffc2 0%, #00e1ab 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text'
+        }}>
+          Foto de Perfil
+        </h2>
+        <p className="text-[#83958c] text-sm mb-8">Actualiza la foto que aparece en la portada de tu portafolio.</p>
+
+        {/* Current / preview photo */}
+        <div className="flex justify-center mb-8">
+          <div className="relative rounded-2xl overflow-hidden"
+            style={{ width: '200px', height: '200px', border: '1px solid rgba(0,255,194,0.30)' }}>
+            <img src={displayImage} alt="Perfil" className="w-full h-full object-cover object-[center_10%]" />
+            {preview && (
+              <div className="absolute top-2 right-2 px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest"
+                style={{ background: 'rgba(0,255,194,0.85)', color: '#003828' }}>
+                Vista previa
+              </div>
+            )}
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-widest text-[#00ffc2] mb-2.5">
+              Nueva Foto
+            </label>
+            <div
+              className="border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-300"
+              style={{
+                borderColor: photoFile ? 'rgba(0,255,194,0.50)' : 'rgba(0,255,194,0.25)',
+                background: photoFile ? 'rgba(0,255,194,0.08)' : 'rgba(0,255,194,0.03)',
+              }}
+            >
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleSelect(e.target.files?.[0] || null)}
+                className="hidden"
+                id="photo-input"
+              />
+              <label htmlFor="photo-input" className="cursor-pointer flex flex-col items-center gap-3">
+                <div className="p-3 rounded-xl" style={{ background: 'rgba(0,255,194,0.15)' }}>
+                  <Upload className="h-6 w-6 text-[#00ffc2]" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-[#00ffc2]">
+                    {photoFile ? photoFile.name : 'Clic o arrastra para subir'}
+                  </p>
+                  <p className="text-xs text-[#83958c] mt-1">JPG, PNG o WebP (máx. 50MB)</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          {error && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+              className="px-4 py-3 rounded-xl text-sm"
+              style={{ background: 'rgba(255,59,48,0.10)', color: '#ff6b5b', border: '1px solid rgba(255,59,48,0.25)' }}>
+              {error}
+            </motion.div>
+          )}
+
+          {success && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+              className="px-4 py-3 rounded-xl text-sm"
+              style={{ background: 'rgba(0,255,194,0.10)', color: '#00ffc2', border: '1px solid rgba(0,255,194,0.25)' }}>
+              ✓ Foto de perfil actualizada exitosamente
+            </motion.div>
+          )}
+
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            type="submit"
+            disabled={isLoading || !photoFile}
+            className="py-4 rounded-xl font-bold text-sm uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              background: 'linear-gradient(135deg, #00ffc2 0%, #00e1ab 100%)',
+              color: '#003828',
+              boxShadow: '0 0 24px rgba(0,255,194,0.25)',
+            }}
+          >
+            {isLoading ? 'Subiendo...' : 'Actualizar Foto'}
           </motion.button>
         </form>
       </div>

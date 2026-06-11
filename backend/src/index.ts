@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.js';
 import projectRoutes from './routes/projects.js';
 import contactRoutes from './routes/contact.js';
 import cvRoutes from './routes/cv.js';
+import settingsRoutes from './routes/settings.js';
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/cv', cvRoutes);
+app.use('/api/settings', settingsRoutes);
 
 // Health check
 app.get('/api/health', (req: Request, res: Response) => {
